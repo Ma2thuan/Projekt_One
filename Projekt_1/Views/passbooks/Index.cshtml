@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Projekt_1.Model.passbook>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm("Search", "passbooks", FormMethod.Get))
+{
+    <div class="form-group">
+        <label for="initialDepositAmount">Initial Deposit Amount</label>
+        <input type="number" step="0.01" name="initialDepositAmount" class="form-control" value="@ViewBag.InitialDepositAmount" />
+    </div>
+    <div class="form-group">
+        <label for="depositAmount">Deposit Amount</label>
+        <input type="number" step="0.01" name="depositAmount" class="form-control" value="@ViewBag.DepositAmount" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SavingsBookID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InitialDepositAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepositAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterestRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsClosed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SavingsAccountType.AccountTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user.user_name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SavingsBookID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitialDepositAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepositAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsClosed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SavingsAccountType.AccountTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user.user_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SavingsBookID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SavingsBookID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SavingsBookID })
+            </td>
+        </tr>
+    }
+
+</table>

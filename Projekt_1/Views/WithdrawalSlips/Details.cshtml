@@ -1,0 +1,51 @@
+﻿@model Projekt_1.Model.WithdrawalSlip
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WithdrawalSlip</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WithdrawalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WithdrawalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WithdrawalDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WithdrawalDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.passbook.SavingsBookID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.passbook.SavingsBookID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.user_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.user_address)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WithdrawalID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

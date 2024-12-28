@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Projekt_1.Model.user>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.user_birth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_identity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.role)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_birth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_identity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.password)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.user_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.user_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.user_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Projekt_1.Model.WithdrawalSlip>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Slips ID
+            </th>
+            <th>
+                PassBook ID
+            </th>
+            <th>
+                Customer ID
+            </th>
+            <th>
+                Customer Name
+            </th>
+            <th>
+                Slips Amount
+            </th>
+            <th>
+                Slips Date
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WithdrawalID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.passbook.SavingsBookID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.user_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WithdrawalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WithdrawalDate)
+
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.WithdrawalID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

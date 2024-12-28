@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Biểu Mẫu 5.2: Báo Cáo Mở/Đóng Sổ Tháng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>Báo cáo cho tháng: @ViewBag.ReportMonth</p>
+<p>Loại tiết kiệm: @ViewBag.SelectedSavingsType</p>
+
+<form method="get" action="@Url.Action("MonthlyFilter", "Reports")">
+    <button type="submit" class="btn btn-secondary">Quay về</button>
+</form>
+
+@if (ViewBag.ReportData != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Loại Tiết Kiệm</th>
+                <th>Ngày</th>
+                <th>Tổng Thu</th>
+                <th>Tổng Chi</th>
+                <th>Chênh Lệch</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 1;
+                var reportData = (List<Projekt_1.Controllers.ReportsController.ReportData>)ViewBag.ReportData;
+                foreach (var item in reportData)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.SavingsType</td>
+                        <td>@item.DepositDate.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@item.TotalIncome</td>
+                        <td>@item.TotalExpense</td>
+                        <td>@item.Difference</td>
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+    </table>
+}

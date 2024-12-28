@@ -1,0 +1,35 @@
+﻿@model Projekt_1.Model.user
+@{
+    ViewBag.Title = "Account Settings";
+}
+<div class="container mt-4">
+    <h2>Account Settings</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Sidebar -->
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#">Personal info</a></li>
+                <li class="list-group-item"><a href="#">Payment details</a></li>
+                <li class="list-group-item"><a href="#">Security</a></li>
+                <li class="list-group-item"><a href="#">Preferences</a></li>
+                <li class="list-group-item"><a href="#">Email notification</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <!-- User Information -->
+            <div class="card">
+                <div class="card-body">
+                    <h5>Personal Info</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Full name:</strong> @Model.user_name <a href="#" class="text-primary">Edit</a></li>
+                        <li><strong>Email:</strong> @Model.email <a href="#" class="text-primary">Edit</a></li>
+                        <li><strong>Gender:</strong> Male <a href="#" class="text-primary">Edit</a></li> <!-- Thêm cột nếu cần -->
+                        <li><strong>Date of birth:</strong> @(Model.user_birth.HasValue ? Model.user_birth.Value.ToString("MMMM dd, yyyy") : "Not provided") <a href="#" class="text-primary">Edit</a></li>
+                        <li><strong>Phone number:</strong> @Model.user_phone <a href="#" class="text-primary">Edit</a></li>
+                        <li><strong>Emergency contact:</strong> Not provided <a href="#" class="text-primary">Add</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Project1DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="interestRates">
+          <Key>
+            <PropertyRef Name="term" />
+          </Key>
+          <Property Name="term" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="interestRate" Type="float" />
+        </EntityType>
+        <EntityType Name="passbook">
+          <Key>
+            <PropertyRef Name="passbook_id" />
+          </Key>
+          <Property Name="user_id" Type="int" />
+          <Property Name="passbook_id" Type="int" Nullable="false" />
+          <Property Name="balance" Type="float" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+          <Property Name="term" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="transactionID" />
+          </Key>
+          <Property Name="transactionID" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="transactionDate" Type="date" />
+          <Property Name="transactionAmount" Type="float" />
+          <Property Name="transactionType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_birth" Type="date" />
+          <Property Name="user_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="user_identity" Type="int" />
+          <Property Name="user_phone" Type="int" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__passbook__user_i__398D8EEE">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="passbook" Type="Self.passbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="passbook">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__user___3E52440B">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DepositMoney" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
+          <Parameter Name="passbook_id" Type="int" Mode="In" />
+          <Parameter Name="amount" Type="float" Mode="In" />
+        </Function>
+        <EntityContainer Name="Project1DBModelStoreContainer">
+          <EntitySet Name="interestRates" EntityType="Self.interestRates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="passbook" EntityType="Self.passbook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__passbook__user_i__398D8EEE" Association="Self.FK__passbook__user_i__398D8EEE">
+            <End Role="users" EntitySet="users" />
+            <End Role="passbook" EntitySet="passbook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__user___3E52440B" Association="Self.FK__Transacti__user___3E52440B">
+            <End Role="users" EntitySet="users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Project1DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="interestRate">
+          <Key>
+            <PropertyRef Name="term" />
+          </Key>
+          <Property Name="term" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="interestRate1" Type="Double" />
+        </EntityType>
+        <EntityType Name="passbook">
+          <Key>
+            <PropertyRef Name="passbook_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="passbook_id" Type="Int32" Nullable="false" />
+          <Property Name="balance" Type="Double" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <Property Name="term" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK__passbook__user_i__398D8EEE" FromRole="passbook" ToRole="users" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="transactionID" />
+          </Key>
+          <Property Name="transactionID" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="transactionDate" Type="DateTime" Precision="0" />
+          <Property Name="transactionAmount" Type="Double" />
+          <Property Name="transactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK__Transacti__user___3E52440B" FromRole="Transactions" ToRole="users" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_birth" Type="DateTime" Precision="0" />
+          <Property Name="user_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="user_identity" Type="Int32" />
+          <Property Name="user_phone" Type="Int32" />
+          <Property Name="user_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="passbooks" Relationship="Self.FK__passbook__user_i__398D8EEE" FromRole="users" ToRole="passbook" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__user___3E52440B" FromRole="users" ToRole="Transactions" />
+        </EntityType>
+        <Association Name="FK__passbook__user_i__398D8EEE">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="passbook" Type="Self.passbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="passbook">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__user___3E52440B">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Project1DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="interestRates" EntityType="Self.interestRate" />
+          <EntitySet Name="passbooks" EntityType="Self.passbook" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK__passbook__user_i__398D8EEE" Association="Self.FK__passbook__user_i__398D8EEE">
+            <End Role="users" EntitySet="users" />
+            <End Role="passbook" EntitySet="passbooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__user___3E52440B" Association="Self.FK__Transacti__user___3E52440B">
+            <End Role="users" EntitySet="users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <FunctionImport Name="DepositMoney">
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="passbook_id" Mode="In" Type="Int32" />
+            <Parameter Name="amount" Mode="In" Type="Double" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Project1DBModelStoreContainer" CdmEntityContainer="Project1DBEntities">
+          <EntitySetMapping Name="interestRates">
+            <EntityTypeMapping TypeName="Project1DBModel.interestRate">
+              <MappingFragment StoreEntitySet="interestRates">
+                <ScalarProperty Name="term" ColumnName="term" />
+                <ScalarProperty Name="interestRate1" ColumnName="interestRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="passbooks">
+            <EntityTypeMapping TypeName="Project1DBModel.passbook">
+              <MappingFragment StoreEntitySet="passbook">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="passbook_id" ColumnName="passbook_id" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="term" ColumnName="term" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="Project1DBModel.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="transactionID" ColumnName="transactionID" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="transactionDate" ColumnName="transactionDate" />
+                <ScalarProperty Name="transactionAmount" ColumnName="transactionAmount" />
+                <ScalarProperty Name="transactionType" ColumnName="transactionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Project1DBModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_birth" ColumnName="user_birth" />
+                <ScalarProperty Name="user_address" ColumnName="user_address" />
+                <ScalarProperty Name="user_identity" ColumnName="user_identity" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DepositMoney" FunctionName="Project1DBModel.Store.DepositMoney" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

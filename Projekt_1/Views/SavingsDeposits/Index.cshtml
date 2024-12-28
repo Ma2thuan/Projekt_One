@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Projekt_1.Model.SavingsDeposit>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<!-- Form tìm kiếm -->
+<p>
+    @using (Html.BeginForm("Index", "SavingsDeposits", FormMethod.Get))
+    {
+    <p>
+        Tìm kiếm theo PassBook ID: @Html.TextBox("searchString")
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>}
+    </p>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Deposit ID
+                </th>
+                <th>
+                    @Html.ActionLink("PassBook ID", "Index", new { sortOrder = ViewBag.PassBookSortParm }) <!-- Cột sắp xếp PassBook ID -->
+                </th>
+                <th>
+                    Costumer Name
+                </th>
+                <th>
+                    Deposit Amount
+                </th>
+                <th>
+                    Deposit Date
+                </th>
+                <th>
+                    Interest Rate
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.passbook.SavingsBookID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.user.user_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositDate)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InterestRate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.DepositID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.DepositID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.DepositID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
