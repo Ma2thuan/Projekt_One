@@ -14,6 +14,17 @@ namespace Projekt_1.Controllers
     {
         private Project1DBEntities db = new Project1DBEntities();
 
+        // Dùng để khi chọn tháng gửi tiền lãi suất sẽ lock in
+        public JsonResult GetInterestRate(int savingsTypeId)
+        {
+            var interestRate = db.SavingsAccountTypes
+                                 .Where(s => s.SavingsTypeID == savingsTypeId)
+                                 .Select(s => s.InterestRate)
+                                 .FirstOrDefault();
+
+            return Json(interestRate, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: passbooks
         public ActionResult Index()
         {
@@ -21,25 +32,52 @@ namespace Projekt_1.Controllers
             return View(passbooks.ToList());
         }
 
-        public ActionResult Search(int? initialDepositAmount, int? depositAmount)
+        //public ActionResult Search(int? initialDepositAmount, string? term)
+        //{
+        //    var passbooks = db.passbooks.Include(p => p.SavingsAccountType).Include(p => p.user);
+
+        //    if (initialDepositAmount.HasValue)
+        //    {
+        //        passbooks = passbooks.Where(p => p.InitialDepositAmount <= initialDepositAmount.Value);
+        //    }
+
+        //    if (depositAmount.HasValue)
+        //    {
+        //        passbooks = passbooks.Where(p => p.DepositAmount <= depositAmount.Value);
+        //    }
+
+        //    ViewBag.InitialDepositAmount = initialDepositAmount;
+        //    ViewBag.DepositAmount = depositAmount;
+
+        //    return View("Index",passbooks.ToList());
+        //}
+
+        public ActionResult Search(int? savingsBookID, int? initialDepositAmount, string term)
         {
             var passbooks = db.passbooks.Include(p => p.SavingsAccountType).Include(p => p.user);
+
+            if (savingsBookID.HasValue)
+            {
+                passbooks = passbooks.Where(p => p.SavingsBookID == savingsBookID.Value);
+            }
 
             if (initialDepositAmount.HasValue)
             {
                 passbooks = passbooks.Where(p => p.InitialDepositAmount <= initialDepositAmount.Value);
             }
 
-            if (depositAmount.HasValue)
+            if (!string.IsNullOrEmpty(term))
             {
-                passbooks = passbooks.Where(p => p.DepositAmount <= depositAmount.Value);
+                passbooks = passbooks.Where(p => p.user.user_name.Contains(term) || p.SavingsAccountType.AccountTypeName.Contains(term));
             }
 
+            ViewBag.SavingsBookID = savingsBookID;
             ViewBag.InitialDepositAmount = initialDepositAmount;
-            ViewBag.DepositAmount = depositAmount;
+            ViewBag.Term = term;
 
-            return View("Index",passbooks.ToList());
+            return View("Index", passbooks.ToList());
         }
+
 
 
 
@@ -62,7 +100,7 @@ namespace Projekt_1.Controllers
         public ActionResult Create()
         {
             ViewBag.SavingsType = new SelectList(db.SavingsAccountTypes, "SavingsTypeID", "AccountTypeName");
-            ViewBag.user_id = new SelectList(db.users, "user_id", "user_address");
+            ViewBag.user_id = new SelectList(db.users, "user_id", "user_name");
             return View();
         }
 
@@ -81,7 +119,7 @@ namespace Projekt_1.Controllers
             }
 
             ViewBag.SavingsType = new SelectList(db.SavingsAccountTypes, "SavingsTypeID", "AccountTypeName", passbook.SavingsType);
-            ViewBag.user_id = new SelectList(db.users, "user_id", "user_address", passbook.user_id);
+            ViewBag.user_id = new SelectList(db.users, "user_id", "user_name", passbook.user_id);
             return View(passbook);
         }
 
