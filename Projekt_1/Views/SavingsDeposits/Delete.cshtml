@@ -2,64 +2,66 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
+<div class="container mt-4">
+    <h2>Delete Savings Deposits</h2>
 
-<h2>Delete</h2>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>SavingsDeposit</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DepositAmount)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>SavingsDeposit</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DepositAmount)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DepositAmount)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DepositAmount)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.InterestRate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InterestRate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.InterestRate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.InterestRate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DepositDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DepositDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DepositDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DepositDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.passbook.SavingsBookID)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.passbook.SavingsBookID)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.passbook.SavingsBookID)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.passbook.SavingsBookID)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.user.user_name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user.user_name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.user.user_name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.user.user_name)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+    </div>
