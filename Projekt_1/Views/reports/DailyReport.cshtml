@@ -1,51 +1,51 @@
 ﻿@{
-    ViewBag.Title = "Biểu Mẫu 5.1: Báo Cáo Doanh Số Hoạt Động Ngày";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Daily Activity Report";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
+<div class="container mt-4">
+    <h2>@ViewBag.Title</h2>
 
-<h2>@ViewBag.Title</h2>
+    <h3><center>Report for: @ViewBag.ReportDate</center></h3>
 
-<form method="get" action="@Url.Action("DailyReport", "Reports")">
-    <div class="form-group">
-        <label for="reportDate">Ngày:</label>
-        <input type="date" id="reportDate" name="reportDate" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Lọc</button>
-</form>
+    <form method="get" action="@Url.Action("DailyReport", "Reports")">
+        <div class="form-group">
+            <label for="reportDate">Day:</label>
+            <input type="date" id="reportDate" name="reportDate" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Lọc</button>
+    </form>
 
-@if (ViewBag.ReportDate != null)
-{
-    <h2><b>Báo cáo doanh số hoạt động của ngày: @ViewBag.ReportDate</b></h2>
-}
-
-@if (ViewBag.ReportData != null)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Loại Tiết Kiệm</th>
-                <th>Tổng Thu</th>
-                <th>Tổng Chi</th>
-                <th>Chênh Lệch</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int count = 1;
-                var reportData = (List<Projekt_1.Controllers.ReportsController.ReportData>)ViewBag.ReportData;
-                foreach (var item in reportData)
-                {
-                    <tr>
-                        <td>@count</td>
-                        <td>@item.SavingsType</td>
-                        <td>@item.TotalIncome</td>
-                        <td>@item.TotalExpense</td>
-                        <td>@item.Difference</td>
-                    </tr>
-                    count++;
+    @if (ViewBag.ReportData != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>List</th>
+                    <th>Savings Type</th>
+                    <th>Day</th>
+                    <th>Total Revenue</th>
+                    <th>Total Expenditure</th>
+                    <th>Difference</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 1;
+                    var reportData = (List<Projekt_1.Controllers.ReportsController.ReportData>)ViewBag.ReportData;
+                    foreach (var item in reportData)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.SavingsType</td>
+                            <td>@item.Date.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@item.TotalIncome</td>
+                            <td>@item.TotalExpense</td>
+                            <td>@item.Difference</td>
+                        </tr>
+                        count++;
+                    }
                 }
-            }
-        </tbody>
-    </table>
-}
+            </tbody>
+        </table>
+    }
+</div>
