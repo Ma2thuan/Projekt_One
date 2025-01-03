@@ -1,0 +1,75 @@
+﻿@model Projekt_1.Model.SavingsAccountType
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminMainLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SavingsAccountType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterestRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterestRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Term)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Term)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WithdrawalDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WithdrawalDays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinimumDeposit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinimumDeposit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowsAdditionalDeposits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowsAdditionalDeposits)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SavingsTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

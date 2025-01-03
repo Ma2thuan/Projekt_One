@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Projekt_1.Model.SavingsAccountType>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminMainLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterestRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Term)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WithdrawalDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinimumDeposit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowsAdditionalDeposits)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterestRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Term)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WithdrawalDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinimumDeposit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowsAdditionalDeposits)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SavingsTypeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SavingsTypeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SavingsTypeID })
+        </td>
+    </tr>
+}
+
+</table>

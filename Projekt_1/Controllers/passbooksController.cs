@@ -111,6 +111,12 @@ namespace Projekt_1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SavingsBookID,user_id,OpeningDate,InitialDepositAmount,DepositAmount,InterestRate,SavingsType,IsClosed")] passbook passbook)
         {
+            //if (passbook.DepositAmount > passbook.InitialDepositAmount)
+            //{
+            //    ModelState.AddModelError("DepositAmount", "Deposit amount cannot be larger than the initial deposit amount.");
+            //    return View(passbook); // Return the view with the error
+            //}
+
             if (ModelState.IsValid)
             {
                 db.passbooks.Add(passbook);
