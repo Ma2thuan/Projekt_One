@@ -43,11 +43,21 @@ namespace Projekt_1.Controllers
                 return View();
             }
 
+            
+
             // Set session or authentication logic
             Session["UserId"] = user.user_id;
             Session["UserEmail"] = user.email;
+            Session["UserEmail"] = user.role;
+
 
             TempData["SuccessMessage"] = "Login successful!";
+
+            if (user.role == "Admin")
+            {
+                return RedirectToAction("Index", "SavingsAccountTypes"); // Redirect to Admin controller
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
