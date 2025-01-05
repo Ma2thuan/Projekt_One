@@ -1,81 +1,47 @@
 ﻿@model Projekt_1.Model.passbook
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Passbook";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2 class="mb-4 text-danger">Delete Passbook</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>passbook</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OpeningDate)
-        </dt>
+<div class="card shadow mb-4">
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">Confirm Deletion</h4>
+    </div>
+    <div class="card-body">
+        <p class="mb-3">Are you sure you want to delete this passbook? This action cannot be undone.</p>
+        <dl class="row">
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.OpeningDate)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.OpeningDate)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.OpeningDate)
-        </dd>
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.InitialDepositAmount)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.InitialDepositAmount)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InitialDepositAmount)
-        </dt>
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.DepositAmount)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.DepositAmount)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.InitialDepositAmount)
-        </dd>
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.InterestRate)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.InterestRate)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DepositAmount)
-        </dt>
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.IsClosed)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.IsClosed)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DepositAmount)
-        </dd>
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.SavingsAccountType.AccountTypeName)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.SavingsAccountType.AccountTypeName)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InterestRate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InterestRate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsClosed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsClosed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SavingsAccountType.AccountTypeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SavingsAccountType.AccountTypeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user.user_address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user.user_address)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.user.user_address)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.user.user_address)</dd>
+        </dl>
+    </div>
+    <div class="card-footer d-flex justify-content-start gap-2">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Delete</button>
+        }
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
 </div>
