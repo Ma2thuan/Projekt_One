@@ -1,0 +1,31 @@
+﻿<!-- _PassbookTable.cshtml -->
+@model IEnumerable<Projekt_1.Model.passbook>
+
+<tbody>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.SavingsBookID)</td>
+                <td>@Html.DisplayFor(modelItem => item.InitialDepositAmount)</td>
+                <td>@Html.DisplayFor(modelItem => item.DepositAmount)</td>
+                <td>@Html.DisplayFor(modelItem => item.InterestRate)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsClosed)</td>
+                <td>@Html.DisplayFor(modelItem => item.SavingsAccountType.AccountTypeName)</td>
+                <td>@Html.DisplayFor(modelItem => item.user.user_name)</td>
+                <td class="d-flex gap-2">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SavingsBookID }, new { @class = "btn btn-warning btn-sm" })
+                    @Html.ActionLink("Details", "Details", new { id = item.SavingsBookID }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SavingsBookID }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="8" class="text-center text-muted">No records found.</td>
+        </tr>
+    }
+</tbody>

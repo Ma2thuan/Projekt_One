@@ -21,6 +21,10 @@ namespace Projekt_1.Controllers
         {
             return View("login");
         }
+        public ActionResult register()
+        {
+            return View("register");
+        }
 
         public ActionResult chart()
         {

@@ -5,71 +5,56 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="mb-4"></h2>
 
-<div>
-    <h4>passbook</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OpeningDate)
-        </dt>
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Passbook Information</h4>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.OpeningDate):</strong>
+                <p>@Html.DisplayFor(model => model.OpeningDate)</p>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.InitialDepositAmount):</strong>
+                <p>@Html.DisplayFor(model => model.InitialDepositAmount)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.OpeningDate)
-        </dd>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.DepositAmount):</strong>
+                <p>@Html.DisplayFor(model => model.DepositAmount)</p>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.InterestRate):</strong>
+                <p>@Html.DisplayFor(model => model.InterestRate)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InitialDepositAmount)
-        </dt>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.IsClosed):</strong>
+                <p>@Html.DisplayFor(model => model.IsClosed)</p>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.SavingsAccountType.AccountTypeName):</strong>
+                <p>@Html.DisplayFor(model => model.SavingsAccountType.AccountTypeName)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.InitialDepositAmount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepositAmount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepositAmount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InterestRate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InterestRate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsClosed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsClosed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SavingsAccountType.AccountTypeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SavingsAccountType.AccountTypeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user.user_address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user.user_address)
-        </dd>
-
-    </dl>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.user.user_address):</strong>
+                <p>@Html.DisplayFor(model => model.user.user_address)</p>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SavingsBookID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="d-flex justify-content-start gap-2">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SavingsBookID }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>

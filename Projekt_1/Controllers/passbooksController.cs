@@ -71,14 +71,13 @@ namespace Projekt_1.Controllers
                 passbooks = passbooks.Where(p => p.user.user_name.Contains(term) || p.SavingsAccountType.AccountTypeName.Contains(term));
             }
 
+            // Return the main view
             ViewBag.SavingsBookID = savingsBookID;
             ViewBag.InitialDepositAmount = initialDepositAmount;
             ViewBag.Term = term;
 
             return View("Index", passbooks.ToList());
         }
-
-
 
 
         // GET: passbooks/Details/5
@@ -119,10 +118,14 @@ namespace Projekt_1.Controllers
 
             if (ModelState.IsValid)
             {
+                            passbook.IsClosed = false;
+
+
                 db.passbooks.Add(passbook);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
 
             ViewBag.SavingsType = new SelectList(db.SavingsAccountTypes, "SavingsTypeID", "AccountTypeName", passbook.SavingsType);
             ViewBag.user_id = new SelectList(db.users, "user_id", "user_name", passbook.user_id);

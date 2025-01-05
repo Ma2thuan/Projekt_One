@@ -31,7 +31,7 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="@Url.Action("AccountSettings", "Home")">Account</a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="@Url.Action("Login", "Home")">Logout</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Login", "Auth")">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -42,14 +42,30 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
+                        <div class="sb-sidenav-menu-heading">Core</div>
                         <a class="nav-link" href="@Url.Action("Index", "Home")">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
 
-                        <a class="nav-link" href="@Url.Action("Index", "SavingsAccountTypes")">
+                        <a class="nav-link" href="@Url.Action("Index", "passbooks")">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-"></i></div>
-                            Saving Types
+                            Passbook
+                        </a>
+
+                        <a class="nav-link" href="@Url.Action("Index", "SavingsDeposits")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-"></i></div>
+                            Deposit
+                        </a>
+
+                        <a class="nav-link" href="@Url.Action("Index", "WithdrawalSlips")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-"></i></div>
+                            Withdrawal
+                        </a>
+
+                        <a class="nav-link" href="@Url.Action("ChooseReport", "Reports")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-"></i></div>
+                            Reports
                         </a>
                     </div>
                 </div>
