@@ -10,7 +10,8 @@ namespace Projekt_1.Controllers
 {
     public class AuthController : Controller
     {
-        private Project1DBEntities db = new Project1DBEntities();
+        public Project1DBEntities db = new Project1DBEntities();
+        private static int _currentUserId = 1; // Khởi tạo giá trị user_id bắt đầu từ 1
 
         // GET: Auth/Login
         public ActionResult Login()
@@ -92,7 +93,8 @@ namespace Projekt_1.Controllers
                         TempData["ErrorMessage"] = "Email already exists.";
                         return View(user);
                     }
-
+                    // Gán user_id thủ công
+                    user.user_id = GetNextUserId();
                     // Gán giá trị mặc định nếu cần
                     user.user_birth = user.user_birth ?? DateTime.Now;
                     user.user_address = user.user_address ?? "N/A";
@@ -124,6 +126,18 @@ namespace Projekt_1.Controllers
             return View(user);
         }
 
+        public int GetNextUserId()
+        {
+            lock (this) // Đảm bảo thread-safe
+            {
+                if (db.users.Any())
+                {
+                    _currentUserId = db.users.Max(u => u.user_id) + 1; // Lấy giá trị user_id lớn nhất trong DB
+                }
+                return _currentUserId++;
+            }
+        }
+
         // GET: Auth/Logout
         public ActionResult Logout()
         {
@@ -132,7 +146,7 @@ namespace Projekt_1.Controllers
             return RedirectToAction("Login");
         }
 
-        private string HashPassword(string password)
+        public string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
             {
@@ -142,12 +156,12 @@ namespace Projekt_1.Controllers
             }
         }
 
-        private bool IsValidEmail(string email)
+        public bool IsValidEmail(string email)
         {
             return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
 
-        private bool IsStrongPassword(string password)
+        public bool IsStrongPassword(string password)
         {
             return password.Length >= 8
                    && password.Any(char.IsUpper)
