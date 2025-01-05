@@ -1,53 +1,42 @@
 ﻿@model Projekt_1.Model.WithdrawalSlip
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details Withdrawal Slip";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="container mt-4">
-    <h2>Details Withdrawal Slips</h2>
+<h2 class="mb-4 text-primary">Withdrawal Slip Details</h2>
 
-    <div>
-        <h4>WithdrawalSlip</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.WithdrawalAmount)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.WithdrawalAmount)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.WithdrawalDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.WithdrawalDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.passbook.SavingsBookID)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.passbook.SavingsBookID)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.user.user_address)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.user.user_address)
-            </dd>
-
-        </dl>
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Withdrawal Slip Information</h4>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.WithdrawalID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.WithdrawalAmount):</strong>
+                <p>@Html.DisplayFor(model => model.WithdrawalAmount)</p>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.WithdrawalDate):</strong>
+                <p>@Html.DisplayFor(model => model.WithdrawalDate)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.passbook.SavingsBookID):</strong>
+                <p>@Html.DisplayFor(model => model.passbook.SavingsBookID)</p>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.user.user_address):</strong>
+                <p>@Html.DisplayFor(model => model.user.user_address)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-start gap-2">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WithdrawalID }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
 </div>

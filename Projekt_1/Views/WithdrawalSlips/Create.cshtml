@@ -1,108 +1,90 @@
 ﻿@model Projekt_1.Model.WithdrawalSlip
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Withdrawal Slip";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-<div class="container mt-4">
-    <h2>Create new Withdrawal Slips</h2>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+<h2 class="mb-4">Create Withdrawal Slip</h2>
 
-        <div class="form-horizontal">
-            <h4>WithdrawalSlip</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.WithdrawalID, "Withdrawal ID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Withdrawal Slip Details</h4>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+            <!-- Withdrawal ID -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.WithdrawalID, "Withdrawal ID", new { @class = "col-sm-3 col-form-label" })
+                <div class="col-sm-9">
                     @Html.EditorFor(model => model.WithdrawalID, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.WithdrawalID, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SavingsBookID, "Savings Book ID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("SavingsBookID", ViewBag.SavingsBookID as SelectList, htmlAttributes: new { @class = "form-control" })
+            <!-- Savings Book ID -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.SavingsBookID, "Savings Book ID", new { @class = "col-sm-3 col-form-label" })
+                <div class="col-sm-9">
+                    @Html.DropDownList("SavingsBookID", ViewBag.SavingsBookID as SelectList, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.SavingsBookID, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_id, "Customer ID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="text" id="user_id" name="user_id" class="form-control" readonly /> <!-- Thêm name để lưu -->
-                    @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.user.user_name, "Customer Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <!-- Customer Name -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.user.user_name, "Customer Name", new { @class = "col-sm-3 col-form-label" })
+                <div class="col-sm-9">
                     <input type="text" id="CustomerName" class="form-control" readonly />
                     @Html.HiddenFor(model => model.user_id)
                     @Html.ValidationMessageFor(model => model.user.user_name, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.WithdrawalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <!-- Withdrawal Amount -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.WithdrawalAmount, "Withdrawal Amount", new { @class = "col-sm-3 col-form-label" })
+                <div class="col-sm-9">
                     @Html.EditorFor(model => model.WithdrawalAmount, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.WithdrawalAmount, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.WithdrawalDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <!-- Withdrawal Date -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.WithdrawalDate, "Withdrawal Date", new { @class = "col-sm-3 col-form-label" })
+                <div class="col-sm-9">
                     <input type="date" id="WithdrawalDate" name="WithdrawalDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                     @Html.ValidationMessageFor(model => model.WithdrawalDate, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
         </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
+        <div class="card-footer d-flex justify-content-start gap-2">
+            <button type="submit" class="btn btn-success">Create</button>
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
     </div>
+}
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $('#SavingsBookID').change(function() {
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#SavingsBookID').change(function () {
                 var selectedSavingsBookID = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("GetCustomerDetails", "WithdrawalSlips")', // Tạo action GetCustomerDetails
+                    url: '@Url.Action("GetCustomerDetails", "WithdrawalSlips")',
                     type: 'GET',
                     data: { savingsBookID: selectedSavingsBookID },
-                    success: function(data) {
-                        $('#user_id').val(data.user_id);
+                    success: function (data) {
                         $('#CustomerName').val(data.user_name);
-                    }
-                });
-
-                $.ajax({
-                    url: '@Url.Action("GetDepositAmount", "WithdrawalSlips")', // Tạo action GetDepositAmount
-                    type: 'GET',
-                    data: { savingsBookID: selectedSavingsBookID },
-                    success: function(data) {
-                        $('#WithdrawalAmount').val(data); // Tự động điền WithdrawalAmount bằng DepositAmount
                     }
                 });
             });
         });
-        </script>
-    }
-</div>
+    </script>
+}

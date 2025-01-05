@@ -7,6 +7,13 @@
 <div class="container mt-4">
     <h2>Savings Deposits</h2>
 
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
     <!-- Form tìm kiếm -->
     <p>
         @using (Html.BeginForm("Index", "SavingsDeposits", FormMethod.Get))
@@ -23,50 +30,50 @@
             @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
         </p>
     </div>
-        <table id="savingsDepositTable" class="table table-striped table-bordered">
-            <thead>
+    <table id="savingsDepositTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Deposit ID</th>
+                <th>@Html.ActionLink("PassBook ID", "Index", new { sortOrder = ViewBag.PassBookSortParm })</th>
+                <th>Customer Name</th>
+                <th>Deposit Amount</th>
+                <th>Deposit Date</th>
+                <th>Interest Rate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>Deposit ID</th>
-                    <th>@Html.ActionLink("PassBook ID", "Index", new { sortOrder = ViewBag.PassBookSortParm })</th>
-                    <th>Customer Name</th>
-                    <th>Deposit Amount</th>
-                    <th>Deposit Date</th>
-                    <th>Interest Rate</th>
-                    <th>Actions</th>
+                    <td>@Html.DisplayFor(modelItem => item.DepositID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.passbook.SavingsBookID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.user.user_name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DepositAmount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DepositDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.InterestRate)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.DepositID }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Details", "Details", new { id = item.DepositID }, new { @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.DepositID }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.DepositID)</td>
-                        <td>@Html.DisplayFor(modelItem => item.passbook.SavingsBookID)</td>
-                        <td>@Html.DisplayFor(modelItem => item.user.user_name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DepositAmount)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DepositDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.InterestRate)</td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.DepositID }, new { @class = "btn btn-warning btn-sm" })
-                            @Html.ActionLink("Details", "Details", new { id = item.DepositID }, new { @class = "btn btn-info btn-sm" })
-                            @Html.ActionLink("Delete", "Delete", new { id = item.DepositID }, new { @class = "btn btn-danger btn-sm" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
 
-        @section Scripts {
-            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $('#savingsDepositTable').DataTable({
-                        "paging": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true
-                    });
+    @section Scripts {
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#savingsDepositTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true
                 });
-            </script>
-        }
-    </div>
+            });
+        </script>
+    }
+</div>

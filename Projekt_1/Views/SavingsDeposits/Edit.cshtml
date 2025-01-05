@@ -1,76 +1,73 @@
 ﻿@model Projekt_1.Model.SavingsDeposit
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Savings Deposit";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-<div class="container mt-4">
-    <h2>Edit Savings Deposits</h2>
 
+<div class="container mt-4">
+    <h2>Edit Savings Deposit</h2>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>SavingsDeposit</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.DepositID)
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Edit Savings Deposit Details</h4>
+            </div>
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.DepositID)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SavingsBookID, "SavingsBookID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("SavingsBookID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.SavingsBookID, "", new { @class = "text-danger" })
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="SavingsBookID" class="form-label">
+                            @Html.DisplayNameFor(model => model.SavingsBookID)
+                        </label>
+                        @Html.DropDownList("SavingsBookID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SavingsBookID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="user_id" class="form-label">
+                            @Html.DisplayNameFor(model => model.user_id)
+                        </label>
+                        @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="DepositAmount" class="form-label">
+                            @Html.DisplayNameFor(model => model.DepositAmount)
+                        </label>
+                        @Html.EditorFor(model => model.DepositAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DepositAmount, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="InterestRate" class="form-label">
+                            @Html.DisplayNameFor(model => model.InterestRate)
+                        </label>
+                        @Html.EditorFor(model => model.InterestRate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.InterestRate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="DepositDate" class="form-label">
+                            @Html.DisplayNameFor(model => model.DepositDate)
+                        </label>
+                        <input type="date" id="DepositDate" name="DepositDate" class="form-control" value="@Model.DepositDate.Value.ToString("yyyy-MM-dd")" />
+                        @Html.ValidationMessageFor(model => model.DepositDate, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.user_id, "user_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.DepositAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DepositAmount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DepositAmount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.InterestRate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.InterestRate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.InterestRate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.DepositDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="date" id="DepositDate" name="DepositDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" /> <!-- Chọn ngày và ngày hiện tại -->
-                    @Html.ValidationMessageFor(model => model.DepositDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+            <div class="card-footer d-flex justify-content-start gap-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
             </div>
         </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
     }
 </div>

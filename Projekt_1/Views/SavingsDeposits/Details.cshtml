@@ -1,60 +1,49 @@
 ﻿@model Projekt_1.Model.SavingsDeposit
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details Savings Deposit";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-<div class="container mt-4">
-    <h2>Details Savings Deposits</h2>
 
-    <div>
-        <h4>SavingsDeposit</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.DepositAmount)
-            </dt>
+<h2 class="mb-4 text-primary">Savings Deposit Details</h2>
 
-            <dd>
-                @Html.DisplayFor(model => model.DepositAmount)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.InterestRate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.InterestRate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DepositDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DepositDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.passbook.SavingsBookID)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.passbook.SavingsBookID)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.user.user_name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.user.user_name)
-            </dd>
-
-        </dl>
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Savings Deposit Information</h4>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.DepositID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.DepositAmount):</strong>
+                <p>@Html.DisplayFor(model => model.DepositAmount)</p>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.InterestRate):</strong>
+                <p>@Html.DisplayFor(model => model.InterestRate)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.DepositDate):</strong>
+                <p>@Html.DisplayFor(model => model.DepositDate)</p>
+            </div>
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.passbook.SavingsBookID):</strong>
+                <p>@Html.DisplayFor(model => model.passbook.SavingsBookID)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>@Html.DisplayNameFor(model => model.user.user_name):</strong>
+                <p>@Html.DisplayFor(model => model.user.user_name)</p>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="d-flex justify-content-start gap-2">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DepositID }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
