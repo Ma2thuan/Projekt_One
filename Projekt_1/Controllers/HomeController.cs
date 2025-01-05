@@ -61,22 +61,52 @@ namespace Projekt_1.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
+        // GET: Home/AccountSettings
         public ActionResult AccountSettings()
         {
-            // Kiểm tra xem người dùng đã đăng nhập chưa
             if (Session["UserId"] == null)
             {
-                return RedirectToAction("Login", "Auth"); // Chuyển hướng về trang Login nếu chưa đăng nhập
+                return RedirectToAction("Login", "Auth");
             }
-            // Lấy UserId từ Session
+
             int userId = Convert.ToInt32(Session["UserId"]);
-            // Lấy thông tin người dùng từ cơ sở dữ liệu
             var user = db.users.FirstOrDefault(u => u.user_id == userId);
+
             if (user == null)
             {
                 return HttpNotFound("User not found.");
             }
+
             return View(user);
         }
+
+        // POST: Home/UpdateUserInfo
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateUserInfo(int user_id, string user_name, string email, DateTime? user_birth, string user_address, string user_phone)
+        {
+            if (Session["UserId"] == null || Convert.ToInt32(Session["UserId"]) != user_id)
+            {
+                return new HttpStatusCodeResult(403, "Unauthorized");
+            }
+
+            var user = db.users.FirstOrDefault(u => u.user_id == user_id);
+            if (user == null)
+            {
+                return HttpNotFound("User not found.");
+            }
+
+            user.user_name = user_name;
+            user.email = email;
+            user.user_birth = user_birth;
+            user.user_address = user_address;
+            user.user_phone = !string.IsNullOrEmpty(user_phone) ? (int?)Convert.ToInt32(user_phone) : null;
+
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Information updated successfully.";
+            return RedirectToAction("AccountSettings");
+        }
+
     }
 }
